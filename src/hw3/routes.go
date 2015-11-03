@@ -15,33 +15,36 @@ var routes = Routes{
     Route{
         "Get Student",
         "GET",
-        "/Student/{name}",
-        Index,
+        "/Student",
+        GetStudent,
     },
     Route{
         "Add Student",
         "POST",
         "/Student",
-        TodoCreate,
+        AddStudent,
     },
     Route{
         "Remove Student",
         "DELETE",
         "/Student",
-        TodoIndex,
+        RemoveStudent,
     },
     Route{
         "Update Student",
         "UPDATE",
         "/Student",
-        TodoCreate,
+        UpdateStudent,
     },
     Route{
         "List Students",
         "LIST",
         "/Student/listall",
-        TodoCreate,
+        ListStudents,
     },
+
+
+
     Route{
         "Beer",
         "GET",

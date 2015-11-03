@@ -3,6 +3,7 @@ package main
 import (
     "log"
     "net/http"
+    "gopkg.in/mgo.v2"
 )
 
 type MongoConnection struct {
