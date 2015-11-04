@@ -27,7 +27,7 @@ func main() {
     log.Fatal(http.ListenAndServe(":1234", router))
 }
 
-// dials our connection string for our db and returns the session
+// dials our db using connection string for our db and returns the session
 func getSession() *mgo.Session {
 	// connect to db
 	s, err := mgo.Dial(CONNECTIONSTRING)
@@ -36,6 +36,19 @@ func getSession() *mgo.Session {
 	if err != nil {
 		panic(err)
 	}
+
+	studentCollection := s.DB("StudentInfoDB").C("StudentCollection")
+	if studentCollection == nil {
+		panic(err)
+	}
+
+	// create index on netId so no duplicates in database
+	index := mgo.Index{
+		Key:      []string{"$text:_id"},
+		Unique:   true,
+		DropDups: true,
+	}
+	studentCollection.EnsureIndex(index)
 
 	return s
 }
