@@ -8,6 +8,7 @@ import (
     // "io/ioutil"
 
     "gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2/bson"
     "hw3/models"
     "github.com/gorilla/mux"
 )
@@ -74,8 +75,33 @@ func NewStudentHandler(s *mgo.Session) *StudentHandler {
 
 func (h StudentHandler) GetStudent(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
-    name := vars["name"]
+    // name := vars["name"]
     netId := vars["id"]
+
+    // check if netId is there, check if valid hexId, look for student in db by id
+    if len(netId) > 0 {
+        if !bson.IsObjectIdHex(netId) {
+            w.WriteHeader(404)
+            return
+        }
+
+        oid := bson.ObjectIdHex(netId)
+
+        student := models.Student{}
+
+        if err := h.session.DB("StudentInfoDB").C("StudentCollection").FindId(oid).One(&student); err != nil {
+            w.WriteHeader(404)
+            return
+        }
+
+        // marshal into json
+        studentjson, _ := json.Marshal(student)
+
+        // write content-type, statuscode, payload
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(200)
+        fmt.Fprintf(w, "%s", studentjson)
+    }
 
 
 }
