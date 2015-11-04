@@ -73,7 +73,7 @@ func GetStudent(w http.ResponseWriter, r *http.Request) {
 func AddStudent(w http.ResponseWriter, r *http.Request) {
     //create a pointer to the Student struct
     //Student struct maps to the JSON body
-    reqBodyStruct := new(Student)
+    reqBodyStruct := new(models.Student)
     //create a new decoder around the http request body, then feed it the newly created struct variable
     if err := json.NewDecoder(r.Body).Decode(&reqBodyStruct); err != nil {
         w.WriteHeader(http.StatusBadRequest)
