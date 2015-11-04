@@ -11,44 +11,47 @@ type Route struct {
 
 type Routes []Route
 
-var routes = Routes{
-    Route{
-        "Get Student",
-        "GET",
-        "/Student",
-        GetStudent,
-    },
-    Route{
-        "Add Student",
-        "POST",
-        "/Student",
-        AddStudent,
-    },
-    Route{
-        "Remove Student",
-        "DELETE",
-        "/Student",
-        RemoveStudent,
-    },
-    Route{
-        "Update Student",
-        "UPDATE",
-        "/Student",
-        UpdateStudent,
-    },
-    Route{
-        "List Students",
-        "LIST",
-        "/Student/listall",
-        ListStudents,
-    },
+
+func CreateRoutes(h *StudentHandler) Routes {
+    return Routes{
+        Route{
+            "Get Student",
+            "GET",
+            "/Student",
+            h.GetStudent,
+        },
+        Route{
+            "Add Student",
+            "POST",
+            "/Student",
+            h.AddStudent,
+        },
+        Route{
+            "Remove Student",
+            "DELETE",
+            "/Student",
+            h.RemoveStudent,
+        },
+        Route{
+            "Update Student",
+            "UPDATE",
+            "/Student",
+            h.UpdateStudent,
+        },
+        Route{
+            "List Students",
+            "LIST",
+            "/Student/listall",
+            h.ListStudents,
+        },
 
 
 
-    Route{
-        "Beer",
-        "GET",
-        "/drink",
-        Beer,
-    },
+        Route{
+            "Beer",
+            "GET",
+            "/drink",
+            Beer,
+        },
+    }
 }

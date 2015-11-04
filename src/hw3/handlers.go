@@ -9,7 +9,6 @@ import (
 
     "hw3/models"
     "github.com/gorilla/mux"
-    // "github.com/minaandrawos/GoURLLinkShortnerAPI/GoLinkShortener"
 )
 
 /*
@@ -62,7 +61,17 @@ import (
     //     }
     // }
 */
-func GetStudent(w http.ResponseWriter, r *http.Request) {
+
+
+type StudentHandler struct {
+    session *mgo.Session
+}
+
+func NewStudentHandler(s *mgo.Session) *StudentHandler {
+    return &StudentHandler{s}
+}
+
+func (h StudentHandler) GetStudent(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     name := vars["name"]
     netId := vars["id"]
@@ -70,7 +79,7 @@ func GetStudent(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func AddStudent(w http.ResponseWriter, r *http.Request) {
+func (h StudentHandler) AddStudent(w http.ResponseWriter, r *http.Request) {
     //create a pointer to the Student struct
     //Student struct maps to the JSON body
     reqBodyStruct := new(models.Student)
@@ -82,18 +91,19 @@ func AddStudent(w http.ResponseWriter, r *http.Request) {
 
     // do stuff
 
+
     return
 }
 
-func RemoveStudent(w http.ResponseWriter, r *http.Request) {
+func (h StudentHandler) RemoveStudent(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func UpdateStudent(w http.ResponseWriter, r *http.Request) {
+func (h StudentHandler) UpdateStudent(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func ListStudents(w http.ResponseWriter, r *http.Request) {
+func (h StudentHandler) ListStudents(w http.ResponseWriter, r *http.Request) {
 
 }
 
