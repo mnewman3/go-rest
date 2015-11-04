@@ -18,13 +18,13 @@ func main() {
 	StudentHandler := NewStudentHandler(getSession())
 
 	// create our routes using that handler
-    routes := CreateRoutes(&StudentHandler)
+    routes := CreateRoutes(StudentHandler)
 
     // create router using routes created before
     router := NewRouter(routes)
 
     // start serever on port 1234
-    log.Fatal(http.	(":1234", router))
+    log.Fatal(http.ListenAndServe(":1234", router))
 }
 
 // dials our connection string for our db and returns the session
@@ -33,7 +33,7 @@ func getSession() *mgo.Session {
 	s, err := mgo.Dial(CONNECTIONSTRING)
 
 	// check for connection error
-	if err != nul {
+	if err != nil {
 		panic(err)
 	}
 

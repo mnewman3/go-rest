@@ -7,6 +7,7 @@ import (
     // "io"
     // "io/ioutil"
 
+    "gopkg.in/mgo.v2"
     "hw3/models"
     "github.com/gorilla/mux"
 )
